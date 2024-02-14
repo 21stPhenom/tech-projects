@@ -3,3 +3,4 @@ __pycache__/
 .env
 db.sqlite3
 media/
+project_checklist_description.txt
