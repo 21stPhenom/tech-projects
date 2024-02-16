@@ -1,0 +1,16 @@
+{% extends 'accounts/base.html' %}
+
+{% block title %}Manage your account{% endblock title %}
+
+{% block body %}
+<h3>Manage your account</h3>
+<ul>
+    <li><a href="{% url 'accounts:register' %}">Register</a></li>
+    {% if request.user.is_authenticated %}
+        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+    {% else %}
+        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+    {% endif %}
+</ul>
+
+{% endblock body %}

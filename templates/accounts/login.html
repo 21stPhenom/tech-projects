@@ -1,0 +1,22 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/reg_form.css' %}">
+{% endblock style %}
+
+{% block title %}Login | Tech Projects{% endblock title %}
+
+{% block body %}
+<form action="{% url 'accounts:login' %}" method="post" class="reg-form">
+    {% csrf_token %}
+    <label for="">Username:</label><br>
+    <input type="text" name="username">
+
+    <label for="">Password:</label><br>
+    <input type="password" name="password">
+
+    <input type="submit" value="Login">
+</form>
+
+{% endblock body %}
