@@ -27,7 +27,7 @@ class Project(models.Model):
         ordering = ('-date_created', '-date_updated')
 
     def __str(self):
-        return f'{self.name} by {self.author}'
+        return f'{self.name} by {self.creator}'
     
 class Solution(models.Model):
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='solutions')
