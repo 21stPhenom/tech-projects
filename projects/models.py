@@ -14,7 +14,7 @@ class Project(models.Model):
     }
 
     creator = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='projects')
-    name = models.CharField(verbose_name='Project Description', max_length=200, unique=True)
+    name = models.CharField(verbose_name='Project Name', max_length=200, unique=True)
     description = models.CharField(verbose_name='Project Description', max_length=1000)
     enrolled_profiles = models.ManyToManyField(Profile, related_name='enrolled_profiles', blank=True)
     reward = models.PositiveSmallIntegerField(verbose_name='Project Reward')
