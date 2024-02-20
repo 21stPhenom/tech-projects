@@ -26,7 +26,7 @@ class Project(models.Model):
     class Meta:
         ordering = ('-date_created', '-date_updated')
 
-    def __str(self):
+    def __str__(self):
         return f'{self.name} by {self.creator}'
     
 class Solution(models.Model):
