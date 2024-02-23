@@ -8,7 +8,7 @@
 {% block title %}Login | Tech Projects{% endblock title %}
 
 {% block body %}
-<form action="{% url 'accounts:login' %}" method="post" class="reg-form">
+<form action="{% url 'accounts:login' %}" method="post" class="form">
     {% csrf_token %}
     <label for="">Username:</label><br>
     <input type="text" name="username">
