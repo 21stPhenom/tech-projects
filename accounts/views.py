@@ -82,11 +82,11 @@ class Login(View):
 @method_decorator(login_required, name='dispatch')
 class Logout(View):
     def get(Self, request, *args, **kwargs):
-        request.session['next'] = request.META.get('HTTP_REFERER')
+        next = request.META.get('HTTP_REFERER', None)
         logout(request)
 
-        if request.session.get('next', None):
-            return redirect(request.session['next'])
+        if next:
+            return redirect(next)
         else:
             return redirect('accounts:home')
 
