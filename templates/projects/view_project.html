@@ -1,0 +1,67 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}{{project.name}}{% endblock title %}
+
+{% block body %}
+<div class="links">
+    <ul>
+        <li><a href="{% url 'projects:home' %}">Home</a></li>
+        <li><a href="{% url 'projects:view_all_projects' %}">Projects</a></li>
+        <li><a href="{% url 'projects:view_all_solutions' %}">Solutions</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'projects:create_project' %}">Create Project</a></li>
+        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'accounts:register' %}">Register</a></li>
+        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="project-detail">
+    <ul>
+        <li>{{ project.name }}</li>
+        <li>{{ project.short_description }}</li>
+        <li>This project is for {{ project.get_difficulty_display }} programmers</li>
+        <li>{{ project.enrolled_profiles|length}} people have enrolled in this project</li>
+
+        {% if enrolled %}
+        <li>You are currently enrolled in this project</li>
+        <br>
+        <div class="solution-form">
+            <form action="{% url 'projects:create_solution' project.project_slug %}" method="post" class="form">
+                {% csrf_token %}
+                <label for="name">Solution Name</label>
+                <input type="text" name="name" id="name">
+                
+                <label for="repo-link">Repo Link</label>
+                <input type="url" name="repo_link" id="repo-link" required>
+
+                <label for="live-link">Live Link</label>
+                <input type="url" name="live_link" id="live-link">
+
+                <input type="submit" value="Submit Solution">
+            </form>
+        </div>
+        {% else %}
+        <li><a href="{% url 'projects:enroll' project.project_slug %}">Enroll in project</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="solutions-list">
+    {% for solution in solutions %}
+    <ul>
+        <li><a href="{% url 'projects:view_solution' solution.uid%}">{{ solution.name }}</a></li>
+        <li>{{ solution.creator }}</li>
+        <li>Visit <a href="{{solution.repo_link}}" class="">solution repository</a></li>
+        {% if solution.live_link %}
+        <li>Visit <a href="{{solution.live_link}}">live site</a></li>
+        {% endif %}
+    </ul>
+    {% empty %}
+    <h3>Be the first to submit a solution.</h3>
+    {% endfor %}
+</div>
+
+{% endblock body %}

@@ -1,0 +1,42 @@
+{% extends 'projects/base.html' %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock style %}
+
+{% block title %}Create a new project{% endblock title %}
+
+{% block body %}
+<h3>Create a new project</h3>
+
+<div class="project-form">
+    <form action="{% url 'projects:create_project' %}" method="post" class="form">
+        {% csrf_token %}
+        
+        <label for="name">Project Name</label>
+        <input type="text" name="project_name" id="name">
+        
+        <label for="short_description">Short Description</label>
+        <input type="text" name="short_description" id="short_description">
+        
+        <label for="long_description">Long Description</label>
+        <textarea cols="30" rows="40" name="long_description" id="long_description">
+        
+        
+        <label for="difficulty">Project Difficulty</label>
+        <select name="project_difficulty" id="difficulty">
+            <option value="0">Beginner</option>
+            <option value="1">Intermediate</option>
+            <option value="2">Advanced</option>
+            <option value="3">Pro</option>
+        </select>
+
+        <label for="tags">Tags</label>
+        <input type="text" name="tags" id="tags">
+        
+        <input type="submit" value="Create Project">
+    </form>
+</div>
+
+{% endblock body %}

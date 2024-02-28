@@ -1,0 +1,33 @@
+{% extends 'projects/base.html' %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock style %}
+
+{% block title %}Update your solution{% endblock title %}
+
+{% block body %}
+<div class="links">
+    <ul>
+        <li><a href="{% url 'projects:home' %}">Home</a></li>
+        <li><a href="{% url 'projects:view_all_projects' %}">Projects</a></li>
+        <li><a href="{% url 'projects:view_all_solutions' %}">Solutions</a></li>
+    </ul>
+</div>
+
+<div class="solution-form">
+    <form action="{% url 'projects:update_solution' solution.uid %}" method="post" class="form">
+        {% csrf_token %}
+
+        <label for="repo-link">Repo Link</label>
+        <input type="text" name="repo_link" id="repo-link" value="{{solution.repo_link}}">
+
+        <label for="live-link">Live Link</label>
+        <input type="text" name="live_link" id="live-link" value="{{solution.live_link}}">
+
+        <input type="submit" value="Update Solution">
+    </form>
+</div>
+
+{% endblock body %}

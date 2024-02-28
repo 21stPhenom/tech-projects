@@ -1,0 +1,35 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}Explore Solutions{% endblock title %}
+
+{% block body %}
+<div class="links">
+    <ul>
+        <li><a href="{% url 'projects:home' %}">Home</a></li>
+        <li><a href="{% url 'projects:view_all_projects' %}">Projects</a></li>
+        <li><a href="{% url 'projects:view_all_solutions' %}">Solutions</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'projects:create_project' %}">Create Project</a></li>
+        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'accounts:register' %}">Register</a></li>
+        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="solutions-list">
+    {% for solution in solutions %}
+    <ul>
+        <li><a href="{% url 'projects:view_solution' solution.uid%}">{{ solution.project.name }}</a></li>
+        <li>{{ solution.creator }}</li>
+        <li>Visit <a href="{% url '{{solution.repo_link}}' %}" class="">solution repository</a></li>
+        {% if solution.live_link %}
+        <li>Visit <a href="{% url '{{solution.live_link}}' %}">live site</a></li>
+        {% endif %}
+    </ul>
+    {% empty %}
+    <h3>No solutions are available.</h3>
+    {% endfor %}
+</div>
+{% endblock body %}

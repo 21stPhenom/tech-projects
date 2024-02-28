@@ -1,0 +1,35 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}{{project.name}}{% endblock title %}
+
+{% block body %}
+<div class="links">
+    <ul>
+        <li><a href="{% url 'projects:home' %}">Home</a></li>
+        <li><a href="{% url 'projects:view_all_projects' %}">Projects</a></li>
+        <li><a href="{% url 'projects:view_all_solutions' %}">Solutions</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'projects:create_project' %}">Create Project</a></li>
+        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'accounts:register' %}">Register</a></li>
+        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<div class="solution-detail">
+    <h3>This solution was created by {{solution.creator.user.username}}</h3>
+
+    <h3>Visit the repository: <a href="{{solution.repo_link}}">{{solution.repo_link}}</a></h3>
+    {% if solution.live_link %}
+    <h3>Visit <a href="{{solution.live_link}}">live site</a></h3>
+    {% endif %}
+
+    {% if solution.creator == request.user.profile %}
+    <h3><a href="{% url 'projects:update_solution' solution.uid %}">Update your solution</a></h3>
+    {% endif %}
+</div>
+
+
+{% endblock body %}

@@ -1,0 +1,46 @@
+{% extends 'projects/base.html' %}
+
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock style %}
+
+{% block title %}Update your new project{% endblock title %}
+
+{% block body %}
+<div class="links">
+    <ul>
+        <li><a href="{% url 'projects:home' %}">Home</a></li>
+        <li><a href="{% url 'projects:view_all_projects' %}">Projects</a></li>
+        <li><a href="{% url 'projects:view_all_solutions' %}">Solutions</a></li>
+    </ul>
+</div>
+
+<h3>Create a new project</h3>
+
+<div class="project-form">
+    <form action="{% url 'projects:update_project' project.project_slug %}" method="post" class="form">
+        {% csrf_token %}
+        
+        <label for="name">Project Name</label>
+        <input type="text" name="project_name" id="name" value="{{project.name}}">
+        
+        <label for="description">Project Description</label>
+        <input type="text" name="project_description" id="description" value="{{project.description}}">
+        
+        <label for="reward">Reward</label>
+        <input type="number" min="0" name="project_reward" id="reward" value="{{project.reward}}">
+        
+        <label for="difficulty">Project Name</label>
+        <select name="project_difficulty" id="difficulty">
+            <option value="0">Beginner</option>
+            <option value="1">Intermediate</option>
+            <option value="2">Advanced</option>
+            <option value="3">Pro</option>
+        </select>
+
+        <input type="submit" value="Create Project">
+    </form>
+</div>
+
+{% endblock body %}

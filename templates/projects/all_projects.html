@@ -1,0 +1,34 @@
+{% extends 'projects/base.html' %}
+
+{% block title %}All projects{% endblock title %}
+
+{% block body %}
+<div class="links">
+    <ul>
+        <li><a href="{% url 'projects:home' %}">Home</a></li>
+        <li><a href="{% url 'projects:view_all_projects' %}">Projects</a></li>
+        <li><a href="{% url 'projects:view_all_solutions' %}">Solutions</a></li>
+        {% if request.user.is_authenticated %}
+        <li><a href="{% url 'projects:create_project' %}">Create Project</a></li>
+        <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+        {% else %}
+        <li><a href="{% url 'accounts:register' %}">Register</a></li>
+        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<h3>All projects</h3>
+
+<div class="projects-list">
+    {% for project in projects %}
+    <ul>
+        <li><a href="{% url 'projects:view_project' project.project_slug%}">{{ project.name }}</a></li>
+        <li>{{ project.description|slice:":10" }}</li>
+        <li>You get {{ project.reward }} points by completing this project.</li>
+        <li>This project is for {{ project.get_difficulty_display }} programmers</li>
+        <li>{{ project.enrolled_profiles|length}} people have enrolled in this project</li>
+    </ul>
+    {% endfor %}
+</div>
+{% endblock body %}
