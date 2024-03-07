@@ -24,8 +24,7 @@
     {% for project in projects %}
     <ul>
         <li><a href="{% url 'projects:view_project' project.project_slug%}">{{ project.name }}</a></li>
-        <li>{{ project.description|slice:":10" }}</li>
-        <li>You get {{ project.reward }} points by completing this project.</li>
+        <li>{{ project.short_description|slice:":50" }}...</li>
         <li>This project is for {{ project.get_difficulty_display }} programmers</li>
         <li>{{ project.enrolled_profiles|length}} people have enrolled in this project</li>
     </ul>

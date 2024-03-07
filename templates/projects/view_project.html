@@ -23,7 +23,17 @@
         <li>{{ project.name }}</li>
         <li>{{ project.short_description }}</li>
         <li>This project is for {{ project.get_difficulty_display }} programmers</li>
+        <li>
+            <div>{{project.long_description|safe}}</div>
+        </li>
         <li>{{ project.enrolled_profiles|length}} people have enrolled in this project</li>
+        <li>Tags:
+            <ul>
+                {% for tag in project.tags %}
+                <li>{{tag}}</li>
+                {% endfor %}
+            </ul>
+        </li>
 
         {% if enrolled %}
         <li>You are currently enrolled in this project</li>
@@ -33,7 +43,7 @@
                 {% csrf_token %}
                 <label for="name">Solution Name</label>
                 <input type="text" name="name" id="name">
-                
+
                 <label for="repo-link">Repo Link</label>
                 <input type="url" name="repo_link" id="repo-link" required>
 
