@@ -24,8 +24,7 @@ class Register(View):
         username = request.POST['username']
         password_1 = request.POST['password_1']
         password_2 = request.POST['password_2']
-
-
+        
         if User.objects.filter(email=email).exists():
             return redirect('accounts:register')
         
@@ -42,11 +41,7 @@ class Register(View):
             username=username,
             password=password_1
         )
-
-        try:
-            profile = Profile.objects.get(user=new_user)
-        except Profile.DoesNotExist:
-            profile  = Profile.objects.create(user=new_user)    
+        Profile.objects.get_or_create(user=new_user)
         
         if request.session['next']:
             return redirect(request.session['next'])
